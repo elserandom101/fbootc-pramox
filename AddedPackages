@@ -1,0 +1,19 @@
+# Packages added in the image
+
+# a block layer caching system which doesn't use LVM; it's tools
+bcache-tools
+
+# KDE KWin's xdotool equivalent
+kdotool
+
+# GNU Midnight commander; A TUI file manager
+mc
+
+# A make(file)-like system for commonly used collections of commands
+just
+
+# manages aritrary installations of files
+stow
+
+# compose.yaml interperter for container management
+podman-compose
