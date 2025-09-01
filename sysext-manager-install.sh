@@ -1,3 +1,6 @@
+#!/bin/bash
+set -xeuo pipefail
+
 # source and info: https://github.com/travier/sysexts-manager
 VERSION="0.3.0" # sysexts-manager version
 VERSION_ID="42" # Fedora release
@@ -10,3 +13,5 @@ curl --silent --fail --location "${URL}/${NAME}" \
 ln -snf "/var/lib/extensions.d/${NAME}" "/var/lib/extensions/sysexts-manager.raw"
 restorecon -RFv "/var/lib/extensions"{,.d} "/run/extensions"
 systemctl enable systemd-sysext.service
+
+exit 0
