@@ -11,4 +11,7 @@ then
   ln -sf usr/opt /opt
 end
 
+# /opt/local
+ln -sf /var/usrlocal /opt/local
+
 exit 0
