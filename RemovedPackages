@@ -1,0 +1,2 @@
+# Packages to be removed from the base image
+# This is applied _before_ the list of packages to be added
