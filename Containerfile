@@ -4,15 +4,15 @@ FROM quay.io/fedora/fedora-kinoite:42
 
 # Make /opt immutable; See OPT_RO.md for details
 COPY --chmod=0755 ./opt-ro.sh /tmp/opt-ro.sh
-RUN /tmp/opt-ro.sh && rm /tmp/opt-ro.sh
+RUN /tmp/opt-ro.sh && rm -f /tmp/opt-ro.sh
 
 # Adding a simple sysext-manager
 COPY --chmod=0755 ./sysext-manager-install.sh /tmp/sysext-manager.sh
-RUN /tmp/sysext-manager.sh && rm /tmp/sysext-manager.sh
+RUN /tmp/sysext-manager.sh && rm -f /tmp/sysext-manager.sh
 
-# DNF plugin and kernel-install support
-RUN dnf -y downgrade kernel
-RUN dnf -y install dnf5-plugins
+# Adding flathub
+COPY --chmod=0755 ./flathub-setup.sh /tmp/flathub.sh
+RUN /tmp/flathub.sh && rm -f /tmp/flathub.sh
 
 # Packages (filenames need to be better...)
 RUN mkdir /usr/share/fkinoite-pramox
@@ -20,6 +20,13 @@ COPY --chmod=0644 ./AddedPackages /usr/share/fkinoite-pramox/AddedPackages
 COPY --chmod=0644 ./RemovedPackages /usr/share/fkinoite-pramox/RemovedPackages
 #RUN cat /usr/share/bpkgs-removed | grep -vE '^#' | xargs dnf -y remove --allowerasing
 RUN cat /usr/share/bpkgs-added | grep -vE '^#' | xargs dnf -y install --allowerasing
+
+# Initrd extra configs
+COPY --chmod=0644 ./dracut.conf.d/* /usr/lib/dracut/dracut.conf.d
+
+# DNF plugin and kernel-install support (also initrd rebuilt)
+RUN dnf -y downgrade kernel
+RUN dnf -y install dnf5-plugins
 
 # Final cleanups
 RUN dnf clean all
