@@ -9,7 +9,7 @@ then
   mkdir /usr/opt 2>/dev/null ||:
   rm -f /opt ||:
   ln -sf usr/opt /opt
-end
+fi
 
 # /opt/local
 ln -sf /var/usrlocal /opt/local
