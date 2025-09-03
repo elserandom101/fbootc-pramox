@@ -18,8 +18,8 @@ RUN /tmp/flathub.sh && rm -f /tmp/flathub.sh
 RUN mkdir /usr/share/fkinoite-pramox
 COPY --chmod=0644 ./AddedPackages /usr/share/fkinoite-pramox/AddedPackages
 COPY --chmod=0644 ./RemovedPackages /usr/share/fkinoite-pramox/RemovedPackages
-#RUN cat /usr/share/bpkgs-removed | grep -vE '^#' | xargs dnf -y remove --allowerasing
-RUN cat /usr/share/bpkgs-added | grep -vE '^#' | xargs dnf -y install --allowerasing
+#RUN cat /usr/share/RemovedPackages | grep -vE '^#' | xargs dnf -y remove --allowerasing
+RUN cat /usr/share/AddedPackages | grep -vE '^#' | xargs dnf -y install --allowerasing
 
 # Initrd extra configs
 COPY --chmod=0644 ./dracut.conf.d/* /usr/lib/dracut/dracut.conf.d
