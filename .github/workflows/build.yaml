@@ -16,6 +16,9 @@ jobs:
       REGISTRY: ghcr.io/${{ github.repository_owner }}
    
     steps:
+      #- name: Clear unnecessary files
+      #  run: rm -rf /opt/hostedtoolscache
+      
       - name: Clone the repository
         uses: actions/checkout@v4
 
@@ -29,12 +32,12 @@ jobs:
             ./Containerfile
 
      # This step is needed or not?
-      #- name: Log in to the GitHub Container registry
-      #  uses: redhat-actions/podman-login@v1
-      #  with:
-      #    registry: ${{ env.REGISTRY }}
-      #    username: ${{ github.actor }}
-      #    password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log in to the GitHub Container registry
+        uses: redhat-actions/podman-login@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push to GitHub Container Repository
         id: push-to-ghcr
