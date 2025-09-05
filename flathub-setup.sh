@@ -11,7 +11,7 @@ flatpak remote-modify --system --prio=1 flathub ||:
 flatpak remote-modify --system --prio=2 fedora ||:
 
 # Reinstall programs already installed through flathub
-flatpak --system install -y flathub --reinstall $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+flatpak --system install -y --reinstall $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
 
 # Add some useful things like codecs etc...
 RUNEXTS=(
@@ -19,12 +19,12 @@ RUNEXTS=(
   "org.freedesktop.Platform.VulkanLayer"
   "org.freedesktop.Platform.codecs-extra"
 )
-flatpak --system install -y flathub "${RUNEXTS[@]}"
+flatpak --system install -y "${RUNEXTS[@]}"
 
 # Replace some default included applications
 DEFPROG=(
   "org.mozilla.firefox"
 )
-flatpak --system install -y flathub "${DEFPROG[@]}"
+flatpak --system install -y "${DEFPROG[@]}"
 
 exit 0
