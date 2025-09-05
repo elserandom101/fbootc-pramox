@@ -16,8 +16,9 @@ jobs:
       REGISTRY: ghcr.io/${{ github.repository_owner }}
    
     steps:
-      #- name: Clear unnecessary files
-      #  run: rm -rf /opt/hostedtoolscache
+      # Based on https://github.com/orgs/community/discussions/25678
+      - name: Clear unnecessary files
+        run: rm -rf /opt/hostedtoolcache
       
       - name: Clone the repository
         uses: actions/checkout@v4
