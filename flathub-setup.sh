@@ -5,13 +5,14 @@ set -xeuo pipefail
 flatpak --system remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 # Prioritize flathub
-flatpak remote-modify --system --prio=1 flathub ||:
+#flatpak remote-modify --system --prio=1 flathub ||:
 
 # Deprioritize fedora-flatpaks
-flatpak remote-modify --system --prio=2 fedora ||:
+#flatpak remote-modify --system --prio=2 fedora ||:
 
 # Reinstall programs already installed through flathub
-flatpak --system install -y --reinstall $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+flatpak --system install -y --reinstall flathub $(flatpak list --app-runtime=org.fedoraproject.Platform --columns=application | tail -n +1 )
+
 
 # Add some useful things like codecs etc...
 RUNEXTS=(
